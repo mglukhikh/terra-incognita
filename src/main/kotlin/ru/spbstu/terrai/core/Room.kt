@@ -12,7 +12,7 @@ object Entrance : Room()
 
 object Exit : Room()
 
-class Wormhole(private val id: Int) : Room() {
+data class Wormhole(private val id: Int) : Room() {
     private var nextStored: Wormhole? = null
 
     var next: Wormhole

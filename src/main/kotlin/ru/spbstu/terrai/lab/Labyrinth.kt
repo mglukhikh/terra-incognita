@@ -5,6 +5,27 @@ import java.io.File
 
 class Labyrinth private constructor(val width: Int, val height: Int, private val map: Map<Location, Room>) {
 
+    operator fun get(location: Location): Room = map[location]!!
+
+    operator fun get(x: Int, y: Int) = get(Location(x, y))
+
+    val entrances: List<Location> = map.entries.filter { (_, room) -> room == Exit }.map { it.key }
+
+    val exits: List<Location> = map.entries.filter { (_, room) -> room == Entrance }.map { it.key }
+
+    val wormholeMap: Map<Location, Location> = mutableMapOf<Location, Location>().apply {
+        for ((location, room) in map) {
+            if (room is Wormhole) {
+                val nextRoom = room.next
+                this[location] = map.entries.find {
+                    (_, anotherRoom) -> anotherRoom == nextRoom
+                }!!.key
+            }
+        }
+    }
+
+    fun isValid() = width > 1 && height > 1 && entrances.isNotEmpty() && exits.isNotEmpty()
+
     companion object {
         fun createFromFile(fileName: String): Labyrinth? {
             val lines = File(fileName).readLines()
@@ -15,7 +36,8 @@ class Labyrinth private constructor(val width: Int, val height: Int, private val
             for ((y, line) in lines.drop(1).dropLast(1).withIndex()) {
                 val trimmedLine = line.drop(1).dropLast(1)
                 for ((x, char) in trimmedLine.withIndex()) {
-                    map[Location(x, y)] = when (char) {
+                    val location = Location(x, y)
+                    map[location] = when (char) {
                         ' ' -> Empty
                         'S' -> Entrance
                         'E' -> Exit
