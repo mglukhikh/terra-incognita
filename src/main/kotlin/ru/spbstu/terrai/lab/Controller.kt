@@ -1,8 +1,6 @@
 package ru.spbstu.terrai.lab
 
 import ru.spbstu.terrai.core.*
-import ru.spbstu.terrai.core.Move.Kind.WAIT
-import ru.spbstu.terrai.core.Move.Kind.WALK
 import java.util.*
 
 class Controller(private val lab: Labyrinth, private val player: Player) {
@@ -33,11 +31,11 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
     fun makeMove(): GameResult {
         if (playerCondition.exitReached) return GameResult(moves, exitReached = true)
         val move = player.getNextMove()
-        val moveResult = when (move.kind) {
-            WAIT -> {
+        val moveResult = when (move) {
+            WaitMove -> {
                 MoveResult(lab[playerLocation], playerCondition, true, "Nothing changes")
             }
-            WALK -> {
+            is WalkMove -> {
                 var newLocation = move.direction + playerLocation
                 val newRoom = lab[newLocation]
                 val (movePossible, status) = when (newRoom) {

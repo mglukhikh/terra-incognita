@@ -1,7 +1,6 @@
 package ru.spbstu.terrai.players.samples
 
 import ru.spbstu.terrai.core.*
-import ru.spbstu.terrai.core.Move.Kind.WALK
 
 class BrainDead : AbstractPlayer() {
 
@@ -13,7 +12,7 @@ class BrainDead : AbstractPlayer() {
             if (lastSuccess) Direction.NORTH
             else lastDirection.turnRight()
 
-    override fun getNextMove() = Move(WALK, getDirection().apply { lastDirection = this })
+    override fun getNextMove() = WalkMove(getDirection().apply { lastDirection = this })
 
     override fun setMoveResult(result: MoveResult) {
         lastSuccess = result.successful

@@ -1,9 +1,7 @@
 package ru.spbstu.terrai.core
 
-class Move(val kind: Kind, val direction: Direction) {
+sealed class Move
 
-    enum class Kind {
-        WALK,
-        WAIT;
-    }
-}
+object WaitMove : Move()
+
+class WalkMove(val direction: Direction) : Move()
