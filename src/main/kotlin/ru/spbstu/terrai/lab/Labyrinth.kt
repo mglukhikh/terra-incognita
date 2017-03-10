@@ -29,7 +29,7 @@ class Labyrinth private constructor(val width: Int, val height: Int, private val
     }
 
     fun isValid() =
-            width > 1 && height > 1 &&
+            width in 2..40 && height in 2..25 &&
             entrances.isNotEmpty() && exits.isNotEmpty() &&
             map.values.any { it.content == Treasure }
 

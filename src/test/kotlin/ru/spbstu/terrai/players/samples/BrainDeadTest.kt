@@ -36,4 +36,9 @@ class BrainDeadTest : AbstractPlayerTest() {
     fun testLab6() {
         doTestLab("labyrinths/lab6.txt", Controller.GameResult(100, exitReached = false))
     }
+
+    @Test
+    fun testLab7() {
+        doTestLab("labyrinths/lab7.txt", Controller.GameResult(100, exitReached = false))
+    }
 }
