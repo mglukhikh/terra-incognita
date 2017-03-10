@@ -27,8 +27,10 @@ class Labyrinth private constructor(val width: Int, val height: Int, private val
     fun isValid() = width > 1 && height > 1 && entrances.isNotEmpty() && exits.isNotEmpty()
 
     companion object {
-        fun createFromFile(fileName: String): Labyrinth? {
-            val lines = File(fileName).readLines()
+        fun createFromFile(fileName: String) = createFromFile(File(fileName))
+
+        fun createFromFile(file: File): Labyrinth? {
+            val lines = file.readLines()
             val height = lines.size - 2
             val width = (lines.maxBy { it.length } ?: return null).length - 2
             val map = hashMapOf<Location, Room>()
