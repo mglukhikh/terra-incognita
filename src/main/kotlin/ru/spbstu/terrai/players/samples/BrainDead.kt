@@ -9,7 +9,7 @@ open class BrainDead : AbstractPlayer() {
     protected var lastSuccess = true
 
     protected open fun getDirection() =
-            if (lastSuccess) Direction.NORTH
+            if (lastSuccess) lastDirection
             else lastDirection.turnRight()
 
     override fun getNextMove() = WalkMove(getDirection().apply { lastDirection = this })

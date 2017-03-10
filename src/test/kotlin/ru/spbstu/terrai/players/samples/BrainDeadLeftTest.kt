@@ -9,7 +9,7 @@ class BrainDeadLeftTest : AbstractPlayerTest() {
 
     @Test
     fun testLab1() {
-        doTestLab("labyrinths/lab1.txt", Controller.GameResult(4, exitReached = false))
+        doTestLab("labyrinths/lab1.txt", Controller.GameResult(8, exitReached = true))
     }
 
     @Test
