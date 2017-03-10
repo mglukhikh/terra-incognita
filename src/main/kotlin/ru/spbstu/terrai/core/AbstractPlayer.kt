@@ -1,7 +1,4 @@
-package ru.spbstu.terrai.players.samples
-
-import ru.spbstu.terrai.core.Location
-import ru.spbstu.terrai.core.Player
+package ru.spbstu.terrai.core
 
 abstract class AbstractPlayer : Player {
 
