@@ -52,6 +52,7 @@ class DummySearcher : AbstractPlayer() {
                     decisions.clear()
                     wormholes++
                     currentLocation = Location(wormholes * 1000, wormholes * 1000)
+                    roomMap[currentLocation] = room
                 }
                 is WithContent -> {
                     if (!treasureFound && result.condition.hasTreasure) {
