@@ -28,10 +28,27 @@ class Labyrinth private constructor(val width: Int, val height: Int, private val
         }
     }
 
+    private fun checkWormholes(): Boolean {
+        val first = wormholeMap.entries.firstOrNull() ?: return true
+        val start = first.key
+        var current = first.value
+        val all = mutableSetOf(start, current)
+        while (current != start) {
+            current = wormholeMap[current] ?: return false
+            if (current != start) {
+                if (current in all) return false
+                all += current
+            }
+        }
+        return all.size == map.values.filter { it is Wormhole }.size
+    }
+
     fun isValid() =
             width in 2..40 && height in 2..25 &&
             entrances.isNotEmpty() && exits.isNotEmpty() &&
-            map.values.any { it.content == Treasure }
+            map.values.any { it.content == Treasure } &&
+            map.values.filter { it is Wormhole}.let { it.size == it.distinct().size } &&
+            checkWormholes()
 
     companion object {
         fun createFromFile(fileName: String) = createFromFile(File(fileName))
