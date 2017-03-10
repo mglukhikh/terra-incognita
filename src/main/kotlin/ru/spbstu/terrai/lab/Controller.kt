@@ -47,14 +47,15 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
                         false to "Wall prevents from moving"
                     }
                     is WithContent -> {
-                        when (newRoom.content) {
-                            Treasure -> {
-                                playerCondition = playerCondition.copy(items = playerCondition.items + Treasure)
+                        val content = newRoom.content
+                        when (content) {
+                            is Item -> {
+                                playerCondition = playerCondition.copy(items = playerCondition.items + content)
                                 newRoom.content = null
                                 true to "Treasure found"
                             }
                             null -> true to "Empty room appears"
-                            else -> throw UnsupportedOperationException("Unsupported content: ${newRoom.content}")
+                            else -> throw UnsupportedOperationException("Unsupported content: $content")
                         }
                     }
                     Exit -> {
