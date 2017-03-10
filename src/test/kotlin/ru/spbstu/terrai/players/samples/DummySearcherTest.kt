@@ -31,4 +31,9 @@ class DummySearcherTest : AbstractPlayerTest() {
     fun testLab5() {
         doTestLab("labyrinths/lab5.txt", Controller.GameResult(100, exitReached = false))
     }
+
+    @Test
+    fun testLab6() {
+        doTestLab("labyrinths/lab6.txt", Controller.GameResult(100, exitReached = false))
+    }
 }
