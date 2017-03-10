@@ -20,8 +20,13 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
     data class GameResult(val moves: Int, val exitReached: Boolean)
 
     fun makeMoves(moveLimit: Int): GameResult {
+        var wallCount = 0
         while (moves < moveLimit) {
+            val oldMoves = moves
             val moveResult = makeMove()
+            val newMoves = moves
+            wallCount = if (oldMoves == newMoves) wallCount + 1 else 0
+            if (wallCount >= 100) return moveResult
             playerPath[moves] = playerLocation
             if (moveResult.exitReached) return moveResult
         }
