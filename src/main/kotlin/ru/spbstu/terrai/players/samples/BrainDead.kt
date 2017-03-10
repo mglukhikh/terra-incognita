@@ -2,13 +2,13 @@ package ru.spbstu.terrai.players.samples
 
 import ru.spbstu.terrai.core.*
 
-class BrainDead : AbstractPlayer() {
+open class BrainDead : AbstractPlayer() {
 
-    private var lastDirection = Direction.NORTH
+    protected var lastDirection = Direction.NORTH
 
-    private var lastSuccess = true
+    protected var lastSuccess = true
 
-    private fun getDirection() =
+    protected open fun getDirection() =
             if (lastSuccess) Direction.NORTH
             else lastDirection.turnRight()
 
