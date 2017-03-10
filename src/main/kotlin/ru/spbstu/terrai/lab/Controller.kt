@@ -17,7 +17,7 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
 
     var moves = 0
 
-    internal val playerPath = mutableMapOf<Int, Location>(0 to playerLocation)
+    internal val playerPath = mutableMapOf(0 to playerLocation)
 
     data class GameResult(val moves: Int, val exitReached: Boolean)
 
