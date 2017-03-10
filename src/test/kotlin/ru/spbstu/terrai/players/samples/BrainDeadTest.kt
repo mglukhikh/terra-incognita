@@ -12,7 +12,9 @@ class BrainDeadTest {
         val lab = Labyrinth.createFromFile("labyrinths/lab1.txt")
         val player = BrainDead()
         val controller = Controller(lab, player)
-        assertEquals(Controller.GameResult(4, exitReached = true), controller.makeMoves(100))
+        val gameResult = controller.makeMoves(100)
+        assertEquals(controller.playerPath.toString(),
+                Controller.GameResult(4, exitReached = true), gameResult)
     }
 
     @Test
@@ -20,6 +22,18 @@ class BrainDeadTest {
         val lab = Labyrinth.createFromFile("labyrinths/lab2.txt")
         val player = BrainDead()
         val controller = Controller(lab, player)
-        assertEquals(Controller.GameResult(100, exitReached = false), controller.makeMoves(100))
+        val gameResult = controller.makeMoves(100)
+        assertEquals(controller.playerPath.toString(),
+                Controller.GameResult(100, exitReached = false), gameResult)
+    }
+
+    @Test
+    fun testLab3() {
+        val lab = Labyrinth.createFromFile("labyrinths/lab3.txt")
+        val player = BrainDead()
+        val controller = Controller(lab, player)
+        val gameResult = controller.makeMoves(100)
+        assertEquals(controller.playerPath.toString(),
+                Controller.GameResult(9, exitReached = true), gameResult)
     }
 }

@@ -17,11 +17,14 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
 
     var moves = 0
 
+    internal val playerPath = mutableMapOf<Int, Location>(0 to playerLocation)
+
     data class GameResult(val moves: Int, val exitReached: Boolean)
 
     fun makeMoves(moveLimit: Int): GameResult {
         while (moves < moveLimit) {
             val moveResult = makeMove()
+            playerPath[moves] = playerLocation
             if (moveResult.exitReached) return moveResult
         }
         return GameResult(moves, exitReached = false)
@@ -39,7 +42,10 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
                 val newRoom = lab[newLocation]
                 val (movePossible, status) = when (newRoom) {
                     Empty, Entrance -> true to "Empty room appears"
-                    Wall -> false to "Wall prevents from moving"
+                    Wall -> {
+                        newLocation = playerLocation
+                        false to "Wall prevents from moving"
+                    }
                     is WithContent -> {
                         when (newRoom.content) {
                             Treasure -> {
