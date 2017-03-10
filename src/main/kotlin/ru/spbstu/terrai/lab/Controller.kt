@@ -13,43 +13,50 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
         player.setStartLocationAndSize(this, lab.width, lab.height)
     }
 
-    private var hasTreasure = false
-
-    private var exitReached = false
+    private var playerCondition: Condition = Condition()
 
     var moves = 0
 
     fun makeMove() {
-        if (exitReached) return
+        if (playerCondition.exitReached) return
         val move = player.getNextMove()
         val moveResult = when (move.kind) {
             WAIT -> {
-                MoveResult(lab[playerLocation], true)
+                MoveResult(lab[playerLocation], playerCondition, true, "Nothing changes")
             }
             WALK -> {
                 var newLocation = move.direction + playerLocation
                 val newRoom = lab[newLocation]
-                val movePossible = when (newRoom) {
-                    Empty, Entrance -> true
-                    Wall -> false
+                val (movePossible, status) = when (newRoom) {
+                    Empty, Entrance -> true to "Empty room appears"
+                    Wall -> false to "Wall prevents from moving"
                     is WithContent -> {
-                        if (newRoom.content == Treasure) {
-                            hasTreasure = true
-                            newRoom.content = null
+                        when (newRoom.content) {
+                            Treasure -> {
+                                playerCondition = playerCondition.copy(items = playerCondition.items + Treasure)
+                                newRoom.content = null
+                                true to "Treasure found"
+                            }
+                            null -> true to "Empty room appears"
+                            else -> throw UnsupportedOperationException("Unsupported content: ${newRoom.content}")
                         }
-                        true
                     }
                     Exit -> {
-                        if (hasTreasure) exitReached = true
-                        true
+                        if (playerCondition.hasTreasure) {
+                            playerCondition = playerCondition.copy(exitReached = true)
+                            true to "Exit reached, you won"
+                        }
+                        else {
+                            true to "Exit reached but you do not have a treasure"
+                        }
                     }
                     is Wormhole -> {
                         newLocation = lab.wormholeMap[newLocation]!!
-                        true
+                        true to "Fall into wormhole!"
                     }
                 }
                 playerLocation = newLocation
-                MoveResult(newRoom, movePossible)
+                MoveResult(newRoom, playerCondition, movePossible, status)
             }
         }
         player.setMoveResult(moveResult)
