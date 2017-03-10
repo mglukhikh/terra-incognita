@@ -3,9 +3,9 @@ package ru.spbstu.terrai.players.samples
 import org.junit.Test
 import ru.spbstu.terrai.lab.Controller
 
-class BrainDeadTest : AbstractPlayerTest() {
+class DummySearcherTest : AbstractPlayerTest() {
 
-    override fun createPlayer() = BrainDead()
+    override fun createPlayer() = DummySearcher()
 
     @Test
     fun testLab1() {
@@ -14,7 +14,7 @@ class BrainDeadTest : AbstractPlayerTest() {
 
     @Test
     fun testLab2() {
-        doTestLab("labyrinths/lab2.txt", Controller.GameResult(100, exitReached = false))
+        doTestLab("labyrinths/lab2.txt", Controller.GameResult(48, exitReached = true))
     }
 
     @Test
