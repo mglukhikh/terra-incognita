@@ -17,8 +17,18 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
 
     var moves = 0
 
-    fun makeMove() {
-        if (playerCondition.exitReached) return
+    data class GameResult(val moves: Int, val exitReached: Boolean)
+
+    fun makeMoves(moveLimit: Int): GameResult {
+        while (moves < moveLimit) {
+            val moveResult = makeMove()
+            if (moveResult.exitReached) return moveResult
+        }
+        return GameResult(moves, exitReached = false)
+    }
+
+    fun makeMove(): GameResult {
+        if (playerCondition.exitReached) return GameResult(moves, exitReached = true)
         val move = player.getNextMove()
         val moveResult = when (move.kind) {
             WAIT -> {
@@ -60,7 +70,10 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
             }
         }
         player.setMoveResult(moveResult)
-        moves++
+        if (moveResult.successful) {
+            moves++
+        }
+        return GameResult(moves, playerCondition.exitReached)
     }
 
     companion object {

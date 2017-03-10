@@ -4,7 +4,7 @@ sealed class Room(open val content: RoomContent? = null)
 
 object Empty : Room()
 
-class WithContent(override var content: RoomContent?) : Room()
+data class WithContent(override var content: RoomContent?) : Room()
 
 object Wall : Room()
 

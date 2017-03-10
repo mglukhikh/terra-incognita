@@ -10,7 +10,7 @@ class LabyrinthTest {
         val dir = File("labyrinths")
         assertTrue(dir.isDirectory)
         for (file in dir.listFiles()) {
-            val lab = Labyrinth.createFromFile(file) ?: error("Cannot read labyrinth from file ${file.name}")
+            val lab = Labyrinth.createFromFile(file)
             assertTrue(lab.isValid())
         }
     }
