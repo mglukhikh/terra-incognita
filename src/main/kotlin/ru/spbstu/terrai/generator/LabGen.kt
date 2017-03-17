@@ -211,7 +211,7 @@ private fun genMaze(width: Int, height: Int): Array<BooleanArray> {
 
 fun main(args: Array<String>) {
     //demo code
-    printMap(generateLab(40, 25, LabType.SHARP), "sharp.txt")
-    printMap(generateLab(40, 25, LabType.CAVE), "cave.txt")
-    printMap(generateLab(40, 25, LabType.MAZE), "maze.txt")
+    printMap(generateLab(40, 25, LabType.SHARP), "labyrinths/sharp.txt")
+    printMap(generateLab(40, 25, LabType.CAVE), "labyrinths/cave.txt")
+    printMap(generateLab(40, 25, LabType.MAZE), "labyrinths/maze.txt")
 }
