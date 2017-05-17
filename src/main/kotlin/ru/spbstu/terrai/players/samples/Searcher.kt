@@ -29,9 +29,9 @@ class Searcher : AbstractPlayer(){//класс-реализация абстра
     private var wormholes = 0 //считает количество уже пройденных червоточин
 
     private var maxholes = 0 //хранит количество червоточин на карте
-
-    private var pathWasFinded = false
-
+    
+    private var pathWasFinded = false //найден ли путь от вормхолла до выхода
+    
     private var treasureFinded = false
     //Алгоритм, возвращающий бота к вормхоллу выхода
     private var backInTheFirstWormholeFlag = false
@@ -39,8 +39,8 @@ class Searcher : AbstractPlayer(){//класс-реализация абстра
     private var bindingFlag = false
     private var pathTemp: MutableList<Direction>? = mutableListOf<Direction>()
     //хранит последний результат движения
-    private var lastResult: MoveResult?=null
-    private var loopwWh = false
+    private var lastResult: MoveResult?=null //копия последней полученной информации о состоянии
+    private var loopwWh = false //завис ли бот в цикле
 
     //функция управления движением//работает нормально//пока
     override fun getNextMove(): Move {//если есть любая клетка, в которой бот еще не был, то он идет туда
@@ -195,7 +195,6 @@ class Searcher : AbstractPlayer(){//класс-реализация абстра
             maxholes = wormholes-1//число дырок
             return null
         }
-        //wormholes++//считаем количество дырок и, соответственно, комнат
         return lastmove
     }
     //функция, определяющая алгоритм поведения бота
