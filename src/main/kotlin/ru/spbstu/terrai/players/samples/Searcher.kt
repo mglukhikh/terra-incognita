@@ -22,9 +22,9 @@ class Searcher : AbstractPlayer(){//класс-реализация абстра
 
     private var lastMove: Move = WaitMove
 
-    private val decisions = mutableListOf<Direction>()//список, хранящий ходы
+    private val decisions = mutableListOf<Direction>()//список, хранящий сделанные ходы
 
-    private val pathToExit = mutableListOf<Direction>()
+    private val pathToExit = mutableListOf<Direction>()//список, хранящий путь от ямы до выхода
 
     private var wormholes = 0 //считает количество уже пройденных червоточин
 
