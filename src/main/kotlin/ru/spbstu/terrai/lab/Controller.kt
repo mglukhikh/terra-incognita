@@ -36,6 +36,7 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
     fun makeMove(): GameResult {
         if (playerCondition.exitReached) return GameResult(moves, exitReached = true)
         val move = player.getNextMove()
+
         val moveResult = when (move) {
             WaitMove -> {
                 MoveResult(lab[playerLocation], playerCondition, true, "Nothing changes")
@@ -67,6 +68,7 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
                             true to "Exit reached, you won"
                         }
                         else {
+                            playerCondition = playerCondition.copy(exitFind = true)
                             true to "Exit reached but you do not have a treasure"
                         }
                     }
