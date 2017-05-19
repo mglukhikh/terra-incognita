@@ -246,11 +246,3 @@ class Searcher : AbstractPlayer(){//класс-реализация абстра
     }
 
 }
-
-
-fun main(args: Array<String>) {
-
-    var test = SearcherTest()
-    test.testLab7()
-
-}
