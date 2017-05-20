@@ -58,7 +58,6 @@ class Controller(private val lab: Labyrinth, private val player: Player) {
                                 true to "Treasure found"
                             }
                             null -> true to "Empty room appears"
-                            else -> throw UnsupportedOperationException("Unsupported content: $content")
                         }
                     }
                     Exit -> {
