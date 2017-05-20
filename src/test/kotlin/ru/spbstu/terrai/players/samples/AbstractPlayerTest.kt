@@ -15,7 +15,7 @@ abstract class AbstractPlayerTest {
         val controller = Controller(lab, player)
         val actualResult = controller.makeMoves(500)
         assertEquals(controller.playerPath.toString(), expectedResult.exitReached, actualResult.exitReached)
-        if (expectedResult.exitReached && actualResult.exitReached) {
+        if (expectedResult.exitReached && actualResult.exitReached && expectedResult.moves >= 0) {
             assertEquals(controller.playerPath.toString(), expectedResult.moves, actualResult.moves)
         }
     }
